@@ -1,0 +1,15 @@
+{% extends 'tadoku_calendar/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Login</h2>
+    <div><a href="{% url 'accounts:signup' %}" >sign up</a></div><br>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type='submit'>login</button>
+
+    </form>
+    <br>
+    <a href="{% url 'accounts:password_reset' %}">reset password</a>
+{% endblock %}

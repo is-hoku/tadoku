@@ -1,0 +1,10 @@
+{% extends 'tadoku_calendar/base.html' %}
+
+{% block content %}
+<h2>User registration</h2>
+<form method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type='submit'>user registration</button>
+</form>
+{% endblock %}

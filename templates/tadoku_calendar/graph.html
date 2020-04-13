@@ -1,0 +1,82 @@
+{% extends 'tadoku_calendar/base.html' %}
+{% load static %}
+
+{% block content %}
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false" 
+data-text='My performance of Extensive Reading!   {{ year }}/{{ month }}
+
+total of the words(monthly): {{ sum }}words
+
+increment from last month: {{ sumb }}words
+
+total of the words: {{ total_w }}words
+
+total of read books(monthly): {{ books }}books
+
+total of read books: {{ total_b }}books
+
+'
+data-url='https://tadoku.com/'>Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<!-- <h2>Graph</h2> -->
+<!-- <img src="{% static 'images/graph.svg' %}" class='graphimg'/> -->
+<!-- <div align='right'><a href="{% url 'tadoku_calendar:month' %}" class='box_add'>calendar</a></div><br> -->
+<h3>graph data of a monthly</h3>
+<a href="{% url 'tadoku_calendar:graph' month_previous.year month_previous.month %}" class='back_next'>&lt back</a>
+{{ month_current | date:"Y/m" }}
+<a href="{% url 'tadoku_calendar:graph' month_next.year month_next.month %}" class='back_next'>next &gt</a>
+
+
+<canvas id='myChart' ></canvas>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.bundle.js"></script>
+<script type='text/javascript'>
+var daimei = '{{ year }}/{{ month }}';
+var max = '{{ max }}';
+var step = '{{ step }}';
+
+var ctx = document.getElementById('myChart');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      // labels: {% autoescape off %} {{ dlis }} {% endautoescape %},
+      labels: {{ dlis }},
+      datasets: [
+        {
+          label: 'word count of the day',
+   
+          // data: {% autoescape off %} {{ wordlis }} {% endautoescape %},
+          data: {{ wordlis }},
+          backgroundColor: "orange",
+        }
+    ]
+    },
+      
+    options: {
+        title: {
+        display: true,
+        text: daimei
+      },
+      scales: {
+        yAxes: [{
+          ticks: {
+            suggestedMax: Number(max),
+            suggestedMin: 0,
+            stepSize: Number(step),
+            callback: function(value, index, values){
+              return  value
+            }
+          }
+        }]
+      },
+    }
+});
+</script>
+<hr class='line'>
+<h3>statistical data of a monthly</h3>
+<div class='toukei1'><h4>total of the words(monthly)</h4><h4>:&nbsp;{{ sum }} words</h4></div>
+<div class='toukei2'><h4>increment from last month</h4><h4>:&nbsp;{{ sumb }} words</h4></div>
+<div class='toukei5'><h4>total of the words</h4><h4>:&nbsp;{{ total_w }} words</h4></div>
+<div class='toukei3'><h4>total of read books(monthly)</h4><h4>:&nbsp;{{ books }} books</h4></div>
+<div class='toukei4'><h4>total of read books</h4><h4>:&nbsp;{{ total_b }} books</h4></div>
+
+{% endblock %}

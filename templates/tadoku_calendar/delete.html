@@ -1,0 +1,12 @@
+{% extends 'tadoku_calendar/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Delete</h2>
+    <form method='post'>
+        {% csrf_token %}
+        <p>{{ object.title }} : Do you really want to delete? </p>
+        <input type="submit" value="delete">
+    </form>
+    <a href="{% url 'tadoku_calendar:month' %}">back to home</a>
+{% endblock %}

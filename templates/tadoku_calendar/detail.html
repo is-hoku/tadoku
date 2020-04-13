@@ -1,0 +1,14 @@
+{% extends 'tadoku_calendar/base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Detail</h2>
+<label>date :</label><p> {{ object.date }}</p>
+<label>title :</label><p> {{ object.title }}</p>
+<label>series :</label><p> {{ object.series }}</p>
+<label>level :</label><p> {{ object.level }}</p>
+<label>word_cnt :</label><p> {{ object.word_cnt }}</p>
+<label>evaluation :</label><p> {{ object.get_evaluation_display }}</p>
+<label>coment :</label><p> {{ object.coment }}</p>
+<a href="{% url 'tadoku_calendar:month' %}">back to home</a>
+{% endblock %}

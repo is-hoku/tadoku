@@ -1,0 +1,20 @@
+{% extends 'tadoku_calendar/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2>Profile</h2>
+<label>username :</label> {{ user.get_username }}<br>
+<label>email :</label> {{ user.email }}
+<label>user_rank :</label> <font color='{{ rank }}'>{{ rank }}</font> ({{ total }} words)
+<br>
+<img src="{% static 'images/roadmap.jpg' %}" width='100%'>
+<br><br>
+<a href="{% url 'accounts:profile_edit' pk=user.pk %}"><font color='blue'>edit profile</font></a>
+<a href="{% url 'accounts:user_delete' pk=user.pk %}"><font color='red'>delete user</font></a>
+
+<!-- <a href='http://localhost:8000/accounts/social/connections/'>cancel Twitter link</a> -->
+{% else %}
+<a href="{% url 'accounts:login' %}">login here!</a>
+{% endif %}
+{% endblock %}

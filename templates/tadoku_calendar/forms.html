@@ -1,0 +1,15 @@
+{% extends 'tadoku_calendar/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<h2>Form</h2>
+    <form method='post'>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="save">
+    </form>
+    <a href="{% url 'tadoku_calendar:month' %}">back to home</a>
+{% else %}
+<a href="{% url 'accounts:login' %}">login here!</a>
+{% endif %}
+{% endblock %}
